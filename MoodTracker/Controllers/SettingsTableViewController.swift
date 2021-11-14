@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SettingsTableViewController.swift
 //  MoodTracker
 //
 //  Created by Trofim Petyanov on 14.11.2021.
@@ -7,13 +7,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SettingsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
-
-
 }
-
