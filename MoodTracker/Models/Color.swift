@@ -6,9 +6,18 @@
 //
 
 import Foundation
+import UIKit
 
 struct Color {
     var hue: Double
     var saturation: Double
     var brightness: Double
 }
+
+extension Color {
+    var uiColor: UIColor {
+        return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1)
+    }
+}
+
+extension Color: Codable { }

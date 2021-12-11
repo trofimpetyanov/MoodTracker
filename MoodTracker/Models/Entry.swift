@@ -12,3 +12,5 @@ struct Entry {
     var mood: Mood
     var activities: [Activity]?
 }
+
+extension Entry: Codable { }
