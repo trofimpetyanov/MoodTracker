@@ -50,21 +50,29 @@ class TodayCollectionViewController: UICollectionViewController {
         updateCollectionView()
     }
     
+    //MARK: – Update Methods
     func updateCollectionView() {
         var snapshot = NSDiffableDataSourceSnapshot<ViewModel.Section, ViewModel.Item>()
         
         snapshot.appendSections([.entry])
-        snapshot.appendItems([.activity], toSection: .entry)
+        snapshot.appendItems([.mood, .activity], toSection: .entry)
         
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
+    //MARK: – Actions
+    
+    //MARK: – Data Source
     func createDataSource() -> DataSourceType {
         let dataSource = DataSourceType(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             
             switch itemIdentifier {
             case .mood:
-                return nil
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoodsCollectionViewCell.reuseIdentifier, for: indexPath) as! MoodsCollectionViewCell
+                
+                cell.configureCell()
+                
+                return cell
             case .activity:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActivitiesCollectionViewCell.reuseIdentifier, for: indexPath) as! ActivitiesCollectionViewCell
                 
@@ -77,14 +85,24 @@ class TodayCollectionViewController: UICollectionViewController {
         return dataSource
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    //MARK: – Layout
     func createLayout() -> UICollectionViewCompositionalLayout {
         let padding: CGFloat = 16
         let spacing: CGFloat = 8
+        
         let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.92), heightDimension: .fractionalHeight(28/100))
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.92), heightDimension: .absolute(230))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
             
             let section = NSCollectionLayoutSection(group: group)

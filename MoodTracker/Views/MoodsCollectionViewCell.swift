@@ -1,19 +1,21 @@
 //
-//  MoodActivityCollectionViewCell.swift
+//  MoodsCollectionViewCell.swift
 //  MoodTracker
 //
-//  Created by Trofim Petyanov on 04.12.2021.
+//  Created by Trofim Petyanov on 11.12.2021.
 //
 
 import UIKit
 
-class ActivitiesCollectionViewCell: UICollectionViewCell {
+class MoodsCollectionViewCell: UICollectionViewCell {
     typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
     
-    static let reuseIdentifier = "activitiesCell"
+    static let reuseIdentifier = "moodsCell"
     
     //MARK: – Outlets
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var slider: MoodSlider!
+    @IBOutlet var infoLabel: UILabel!
     @IBOutlet var saveButton: UIButton!
     
     //MARK: – View Model
@@ -23,18 +25,24 @@ class ActivitiesCollectionViewCell: UICollectionViewCell {
         }
         
         enum Item: Hashable {
-            case activity(_ activity: Activity)
+            case mood(_ mood: Mood)
         }
     }
     
     struct Model {
-        var activities: [Activity] {
-            Settings.shared.activities
+        var moods: [Mood] {
+            Settings.shared.moods
+        }
+        
+        var selectedMoodID: Int {
+            Settings.shared.selectedMoodID
         }
     }
     
     var dataSource: DataSourceType!
     var model = Model()
+    
+    var selectedMoodID: Int!
     
     //MARK: – Helper Methods
     func configureCell() {
@@ -47,6 +55,12 @@ class ActivitiesCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 8
         collectionView.layer.cornerRadius = 8
         saveButton.layer.cornerRadius = saveButton.layer.bounds.height / 2
+        
+        //Setting up the default mood
+        selectedMoodID = model.selectedMoodID
+        
+        updateCell()
+        updateSliderValue()
     }
     
     func applySnapshot(using items: [ViewModel.Item]) {
@@ -60,8 +74,8 @@ class ActivitiesCollectionViewCell: UICollectionViewCell {
     
     //MARK: – Update Methods
     func updateCollectionView() {
-        let items = model.activities.reduce(into: [ViewModel.Item]()) { partialResult, activity in
-            let item = ViewModel.Item.activity(activity)
+        let items = model.moods.reduce(into: [ViewModel.Item]()) { partialResult, mood in
+            let item = ViewModel.Item.mood(mood)
             
             partialResult.append(item)
         }
@@ -69,14 +83,77 @@ class ActivitiesCollectionViewCell: UICollectionViewCell {
         applySnapshot(using: items)
     }
     
-    //MARK: – Data Source
+    func updateCell() {
+        let mood = self.model.moods[selectedMoodID]
+        let color = mood.color.uiColor
+        
+        UIView.animate(withDuration: 0.2) {
+            self.tintColor = color.withAlphaComponent(0.5)
+            self.slider.tintColor = color
+            self.infoLabel.text = "I feel \(mood.name.lowercased())"
+        }
+    }
+    
+    func updateSliderValue() {
+        slider.setValue(Float(selectedMoodID), animated: true)
+    }
+    
+    //MARK: – Actions
+    @IBAction func sliderValueSet(_ sender: MoodSlider) {
+        let sliderValue = slider.value
+        
+        switch sliderValue {
+        case 0.0...0.6:
+            selectedMoodID = 0
+        case 0.6...1.6:
+            selectedMoodID = 1
+        case 1.6...2.6:
+            selectedMoodID = 2
+        case 2.6...3.4:
+            selectedMoodID = 3
+        case 3.4...4.0:
+            selectedMoodID = 4
+        default:
+            break
+        }
+        
+        updateCell()
+        updateSliderValue()
+    }
+    
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        var entries = Settings.shared.entries
+        let selectedMood = model.moods[selectedMoodID]
+        
+        if var lastEntry = entries.last, Calendar(identifier: .gregorian).isDateInToday(lastEntry.date) {
+            lastEntry.mood = selectedMood
+            
+            entries.removeLast()
+            entries.append(lastEntry)
+        } else {
+            let newEntry = Entry(date: Date(), mood: selectedMood, activities: nil)
+            entries.append(newEntry)
+        }
+        
+        Settings.shared.entries = entries
+        Settings.shared.selectedMoodID = self.selectedMoodID
+        
+        self.saveButton.setTitle("SAVED!", for: .normal)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            self.saveButton.setTitle("SAVE", for: .normal)
+        }
+
+    }
+    
+    // MARK: – Data Source
     func createDataSource() -> DataSourceType {
         let dataSource = DataSourceType(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.reuseIdentifier, for: indexPath) as! ItemCollectionViewCell
             
             switch itemIdentifier {
-            case .activity(let activity):
-                cell.configureCell(with: activity.emoji, and: activity.name, for: .activites)
+            case .mood(let mood):
+                cell.configureCell(with: mood.emoji, and: nil, for: .moods)
             }
             
             return cell
@@ -85,7 +162,7 @@ class ActivitiesCollectionViewCell: UICollectionViewCell {
         return dataSource
     }
     
-    //MARK: – Layout
+    // MARK: – Layout
     func createLayout() -> UICollectionViewCompositionalLayout {
         let spacing: CGFloat = 8
         let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in

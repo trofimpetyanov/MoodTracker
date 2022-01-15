@@ -22,7 +22,9 @@
 		815FB6C927415E4500BCC84E /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815FB6C827415E4500BCC84E /* Entry.swift */; };
 		818C4B24275BE38A00C5A57B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C4B23275BE38A00C5A57B /* Settings.swift */; };
 		818C4B28275BECC900C5A57B /* ActivitiesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818C4B27275BECC900C5A57B /* ActivitiesCollectionViewCell.swift */; };
+		8190182D278DC4B6001792F0 /* EntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8190182C278DC4B6001792F0 /* EntryCollectionViewCell.swift */; };
 		81B4E70827652C5600BA0337 /* MoodSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B4E70727652C5600BA0337 /* MoodSlider.swift */; };
+		81B4E70A276530F400BA0337 /* MoodsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B4E709276530F400BA0337 /* MoodsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +45,9 @@
 		815FB6C827415E4500BCC84E /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		818C4B23275BE38A00C5A57B /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		818C4B27275BECC900C5A57B /* ActivitiesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesCollectionViewCell.swift; sourceTree = "<group>"; };
+		8190182C278DC4B6001792F0 /* EntryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EntryCollectionViewCell.swift; path = MoodTracker/Views/EntryCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		81B4E70727652C5600BA0337 /* MoodSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSlider.swift; sourceTree = "<group>"; };
+		81B4E709276530F400BA0337 /* MoodsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,14 +82,13 @@
 			children = (
 				815FB6A3274158D200BCC84E /* AppDelegate.swift */,
 				815FB6A5274158D200BCC84E /* SceneDelegate.swift */,
+				818C4B23275BE38A00C5A57B /* Settings.swift */,
 				815FB6C127415DAA00BCC84E /* Models */,
 				815FB6C027415D9F00BCC84E /* Views */,
 				815FB6BD27415D2A00BCC84E /* Controllers */,
 				815FB6A9274158D200BCC84E /* Main.storyboard */,
-				81B4E70727652C5600BA0337 /* MoodSlider.swift */,
-				818C4B23275BE38A00C5A57B /* Settings.swift */,
-				815FB6AC274158D400BCC84E /* Assets.xcassets */,
 				815FB6AE274158D400BCC84E /* LaunchScreen.storyboard */,
+				815FB6AC274158D400BCC84E /* Assets.xcassets */,
 				815FB6B1274158D400BCC84E /* Info.plist */,
 			);
 			path = MoodTracker;
@@ -104,8 +107,11 @@
 		815FB6C027415D9F00BCC84E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				81B4E70727652C5600BA0337 /* MoodSlider.swift */,
 				818C4B27275BECC900C5A57B /* ActivitiesCollectionViewCell.swift */,
+				8190182C278DC4B6001792F0 /* EntryCollectionViewCell.swift */,
 				812A86F5275F907700A2A35F /* ItemCollectionViewCell.swift */,
+				81B4E709276530F400BA0337 /* MoodsCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -200,9 +206,11 @@
 				815FB6BA27415CDD00BCC84E /* StatisticsCollectionViewController.swift in Sources */,
 				815FB6C327415DC100BCC84E /* Mood.swift in Sources */,
 				815FB6C927415E4500BCC84E /* Entry.swift in Sources */,
+				8190182D278DC4B6001792F0 /* EntryCollectionViewCell.swift in Sources */,
 				815FB6C727415E1C00BCC84E /* Activity.swift in Sources */,
 				818C4B28275BECC900C5A57B /* ActivitiesCollectionViewCell.swift in Sources */,
 				815FB6A6274158D200BCC84E /* SceneDelegate.swift in Sources */,
+				81B4E70A276530F400BA0337 /* MoodsCollectionViewCell.swift in Sources */,
 				81B4E70827652C5600BA0337 /* MoodSlider.swift in Sources */,
 				812A86F6275F907700A2A35F /* ItemCollectionViewCell.swift in Sources */,
 			);

@@ -9,8 +9,14 @@ import Foundation
 
 struct Entry {
     var date: Date
-    var mood: Mood
+    var mood: Mood?
     var activities: [Activity]?
 }
 
 extension Entry: Codable { }
+
+extension Entry: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(date)
+    }
+}

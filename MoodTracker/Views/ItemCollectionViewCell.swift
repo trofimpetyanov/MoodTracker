@@ -7,15 +7,25 @@
 
 import UIKit
 
+enum CellType {
+    case moods, activites
+}
+
 class ItemCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "itemCell"
     
     @IBOutlet var emojiLabel: UILabel!
     @IBOutlet var nameLabel: UILabel!
     
-    func configureCell(with emoji: String, and name: String) {
+    func configureCell(with emoji: String, and name: String?, for cellType: CellType) {
         emojiLabel.text = emoji
-        nameLabel.text = name
+        
+        switch cellType {
+        case .moods:
+            backgroundColor = .clear
+        case .activites:
+            nameLabel.text = name!
+        }
         
         layer.cornerRadius = 8
     }
