@@ -13,7 +13,8 @@ class TodayCollectionViewController: UICollectionViewController {
     // MARK: – ViewModel
     enum ViewModel {
         enum Section: Hashable {
-            case entry
+            case entries
+            case moodCounts
         }
         
         enum Item: Hashable {
@@ -54,8 +55,10 @@ class TodayCollectionViewController: UICollectionViewController {
     func updateCollectionView() {
         var snapshot = NSDiffableDataSourceSnapshot<ViewModel.Section, ViewModel.Item>()
         
-        snapshot.appendSections([.entry])
-        snapshot.appendItems([.mood, .activity], toSection: .entry)
+        let mo
+        
+        snapshot.appendSections([.entries, .moodCounts])
+        snapshot.appendItems([.mood, .activity], toSection: .entries)
         
         dataSource.apply(snapshot, animatingDifferences: true)
     }
@@ -85,33 +88,44 @@ class TodayCollectionViewController: UICollectionViewController {
         return dataSource
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
     //MARK: – Layout
     func createLayout() -> UICollectionViewCompositionalLayout {
         let padding: CGFloat = 16
         let spacing: CGFloat = 8
         
         let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.92), heightDimension: .absolute(230))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = spacing
-            section.contentInsets = NSDirectionalEdgeInsets(top: spacing, leading: padding, bottom: spacing, trailing: padding)
-            
-            section.orthogonalScrollingBehavior = .groupPaging
-            
-            return section
+            switch self.dataSource.snapshot().sectionIdentifiers[sectionIndex] {
+            case .entries:
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(230))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.interGroupSpacing = spacing
+                section.contentInsets = NSDirectionalEdgeInsets(top: spacing, leading: padding, bottom: spacing, trailing: padding)
+                
+                section.orthogonalScrollingBehavior = .groupPaging
+                
+                return section
+            case .moodCounts:
+                let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(60))
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.interGroupSpacing = spacing
+                section.contentInsets = NSDirectionalEdgeInsets(top: spacing, leading: padding, bottom: spacing, trailing: padding)
+                
+                section.orthogonalScrollingBehavior = .groupPaging
+                
+                return section
+            }
+
         }
         
         return layout

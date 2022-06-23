@@ -357,6 +357,56 @@
                                     <outlet property="moodLabel" destination="3JZ-0F-rxx" id="xdG-gU-NWi"/>
                                 </connections>
                             </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="countStatisticCell" id="L7R-gS-rQF" customClass="CountStatisticCollectionViewCell" customModule="MoodTracker" customModuleProvider="target">
+                                <rect key="frame" x="115.5" y="90" width="183" height="79"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dwd-ch-Vyo">
+                                    <rect key="frame" x="0.0" y="0.0" width="183" height="79"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="s8N-6a-RKz">
+                                            <rect key="frame" x="20" y="8" width="143" height="63"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" text="😁" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfO-4o-owF">
+                                                    <rect key="frame" x="0.0" y="7.5" width="45" height="48"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YSN-6n-K1k">
+                                                    <rect key="frame" x="53" y="9.5" width="90" height="44.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" ambiguous="YES" text="1000" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="617-YR-1M1">
+                                                            <rect key="frame" x="0.0" y="0.0" width="90" height="30"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" ambiguous="YES" text="times" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yA3-Cr-SK1">
+                                                            <rect key="frame" x="0.0" y="30" width="90" height="14.5"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                            <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="s8N-6a-RKz" secondAttribute="bottom" constant="8" id="MfC-iS-USH"/>
+                                        <constraint firstItem="s8N-6a-RKz" firstAttribute="leading" secondItem="dwd-ch-Vyo" secondAttribute="leading" constant="20" id="V4S-Yr-U7y"/>
+                                        <constraint firstItem="s8N-6a-RKz" firstAttribute="top" secondItem="dwd-ch-Vyo" secondAttribute="top" constant="8" id="aAi-7b-9FX"/>
+                                        <constraint firstAttribute="trailing" secondItem="s8N-6a-RKz" secondAttribute="trailing" constant="20" id="n66-WK-6qb"/>
+                                    </constraints>
+                                </collectionViewCellContentView>
+                                <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                <size key="customSize" width="183" height="79"/>
+                                <connections>
+                                    <outlet property="countLabel" destination="617-YR-1M1" id="eUy-cg-uFB"/>
+                                    <outlet property="emojiLabel" destination="hfO-4o-owF" id="ufo-Yn-fOn"/>
+                                </connections>
+                            </collectionViewCell>
                         </cells>
                         <connections>
                             <outlet property="dataSource" destination="3bD-JI-8Xx" id="8BT-po-vSo"/>
